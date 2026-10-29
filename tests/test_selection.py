@@ -1,6 +1,5 @@
-"""Exercise gossip selection against a stub; set WOW_BUILD_HOST_GUARD to the build guard."""
+"""Exercise the real gossip selection body against a minimal core stub."""
 from pathlib import Path
-import os
 import subprocess
 import tempfile
 import unittest
@@ -9,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class SelectionTest(unittest.TestCase):
     def test_selection(self):
-        subprocess.run([os.environ['WOW_BUILD_HOST_GUARD']], check=True)
+        guard = Path('/home/aaron/Documents/ChatGPT/wow private server/scripts/wow-build-host-guard')
+        subprocess.run([str(guard)], check=True)
         text = (ROOT / 'src/instance_reset.cpp').read_text()
         start = text.index('bool InstanceReset::OnGossipSelect(')
         end = text.index('\nvoid InstanceResetWorldConfig::', start)
