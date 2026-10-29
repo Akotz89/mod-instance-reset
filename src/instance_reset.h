@@ -12,7 +12,7 @@
 void GossipSetText(Player* player, std::string message, uint32 textID);
 
 bool enable = true;
-uint8 transactionType = 0;
+uint32 transactionType = 0;
 uint16 count = 26;
 uint32 token = 49426;
 uint32 money = 10000000;
