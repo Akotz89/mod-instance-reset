@@ -152,6 +152,15 @@ bool InstanceReset::OnGossipSelect(Player* player, Creature* creature, uint32 /*
 
     if (action == GOSSIP_ACTION_INFO_DEF + 1)
     {
+        // Recheck the charge when the player selects the action.
+        if (!enable || transactionType > 3 ||
+            ((transactionType == 1 || transactionType == 3) && !player->HasItemCount(token, count, true)) ||
+            ((transactionType == 2 || transactionType == 3) && player->GetMoney() < money))
+        {
+            CloseGossipMenuFor(player);
+            return true;
+        }
+
         if (!(sConfigMgr->GetOption<bool>("instanceReset.NormalModeOnly", true)))
             diff = MAX_DIFFICULTY;
 
